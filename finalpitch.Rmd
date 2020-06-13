@@ -1,0 +1,49 @@
+---
+title: "AB Test Calculator"
+author: "Aaron Mah"
+date: "6/12/2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(ggplot2)
+```
+
+## AB Test Calculator
+
+This AB Test Calculator takes multiple parameters from the user in order to evaluate whether a significant difference exists between the Control group and the Variant group. Users are shown a graphical representation of the confidence level and the distribution of both samples.
+
+## User Controls
+
+Users are able to control:
+
+- Sample Size
+- Conversion Events
+- Type of Test (Two-sided, One-sided)
+- Confidence Interval
+
+## Assumptions
+
+We assume independent events are being considered when entering conversion events. The standard deviation is calculated assuming a binomial distribution as such:
+```{r cars, echo = TRUE, eval=FALSE}
+errA <- sqrt((crA*(1-crA)/visitA))
+errB <- sqrt((crB*(1-crB)/visitB))
+```
+
+```{r echo=FALSE, eval=TRUE, fig.width=3, fig.height=3}
+        X <- seq(0, 1, by=0.01)
+        Y <- dnorm(X, 0.2, sd=sqrt(.2*(1-.2)/100))
+        Y2 <- dnorm(X, 0.6, sd=sqrt(.6*(1-.6)/100))
+        qplot(X,Y, geom="line")+geom_line(aes(y=Y2))
+```
+
+## Additional Improvements
+
+There are several visual/UX enhancements that may improve the overall usability:
+
+- Better visual emphasis when a test is significant vs. not significant
+- Responsive grid has quirky behaviour at certain screen sizes
+- Additional context could be shown to the user as to how numbers are derived, methodology, etc.
+
+Thanks!
